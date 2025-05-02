@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulario con Validación Visual</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <form id="formulario" novalidate>
+    <h2>Formulario Interactivo</h2>
+
+    <label for="usuario">Nombre de usuario:</label>
+    <input type="text" id="usuario" name="usuario">
+    <div class="error" id="errorUsuario"></div>
+
+    <label for="clave">Contraseña:</label>
+    <input type="password" id="clave" name="clave">
+    <div class="error" id="errorClave"></div>
+
+    <label for="comentarios">Comentarios:</label>
+    <textarea id="comentarios" name="comentarios" rows="4" placeholder="Escribe algo..."></textarea>
+    <div class="error" id="errorComentarios"></div>
+
+    <label>
+      <input type="checkbox" id="suscripcion" name="suscripcion" value="si"> Suscribirme al boletín
+    </label>
+
+    <label for="pais">Selecciona tu país:</label>
+    <select id="pais" name="pais">
+      <option value="">-- Selecciona --</option>
+      <option value="mx">México</option>
+      <option value="ar">Argentina</option>
+      <option value="es">España</option>
+      <option value="co">Colombia</option>
+    </select>
+    <div class="error" id="errorPais"></div>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+    document.getElementById("formulario").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const usuario = document.getElementById("usuario");
+      const clave = document.getElementById("clave");
+      const comentarios = document.getElementById("comentarios");
+      const pais = document.getElementById("pais");
+
+      document.getElementById("errorUsuario").textContent = "";
+      document.getElementById("errorClave").textContent = "";
+      document.getElementById("errorComentarios").textContent = "";
+      document.getElementById("errorPais").textContent = "";
+
+      usuario.classList.remove("error-border");
+      clave.classList.remove("error-border");
+      comentarios.classList.remove("error-border");
+      pais.classList.remove("error-border");
+
+      let esValido = true;
+
+      if (usuario.value.trim() === "") {
+        document.getElementById("errorUsuario").textContent = "Por favor ingresa tu nombre de usuario.";
+        usuario.classList.add("error-border");
+        esValido = false;
+      }
+
+      if (clave.value.trim() === "") {
+        document.getElementById("errorClave").textContent = "Por favor ingresa tu contraseña.";
+        clave.classList.add("error-border");
+        esValido = false;
+      }
+
+      if (comentarios.value.trim() === "") {
+        document.getElementById("errorComentarios").textContent = "Por favor escribe algún comentario.";
+        comentarios.classList.add("error-border");
+        esValido = false;
+      }
+
+      if (pais.value === "") {
+        document.getElementById("errorPais").textContent = "Por favor selecciona tu país.";
+        pais.classList.add("error-border");
+        esValido = false;
+      }
+
+      if (esValido) {
+        alert("Formulario enviado correctamente.");
+        this.reset();
+        usuario.classList.remove("error-border");
+        clave.classList.remove("error-border");
+        comentarios.classList.remove("error-border");
+        pais.classList.remove("error-border");
+      }
+    });
+  </script>
+
+</body>
+</html>
